@@ -74,6 +74,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rotater() {
+        val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360f, 0f)  //Set the rotation animation
+        animator.duration = 1000 //Flow it down
+        animator.addListener(object : AnimatorListenerAdapter() { //Dont allow the users to click the rotate buttin untill the rotation is finished.
+            override fun onAnimationStart(animation: Animator?) {
+                rotateButton.isEnabled = false
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                rotateButton.isEnabled = true
+            }
+        })
+        animator.start()
     }
 
     private fun translater() {
