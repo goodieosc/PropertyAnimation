@@ -76,9 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun rotater() {
         val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360f, 0f)  //Set the rotation animation
         animator.duration = 1000 //Flow it down
-
-        disableViewDuringAnimation(rotateButton, animator)
-
+        animator.disableViewDuringAnimation(rotateButton)
         animator.start()
     }
 
@@ -87,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             200f)
         animator.repeatCount = 1
         animator.repeatMode = ObjectAnimator.REVERSE
-        disableViewDuringAnimation(translateButton, animator)
+        animator.disableViewDuringAnimation(translateButton)
         animator.start()
     }
 
@@ -103,8 +101,8 @@ class MainActivity : AppCompatActivity() {
     private fun shower() {
     }
 
-    private fun disableViewDuringAnimation(view: View, animator: ObjectAnimator) {
-        animator.addListener(object : AnimatorListenerAdapter() {
+    private fun ObjectAnimator.disableViewDuringAnimation(view: View) {
+        addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
                 view.isEnabled = false
             }
